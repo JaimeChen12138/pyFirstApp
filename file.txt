@@ -1,0 +1,75 @@
+I love Angel
+index.html:
+<h1>Hello Angel</h1>
+<form method="POST" action="{{url_for('index')}}">
+  <input type="text" name="username" placeholder="Username" /><br />
+  <input type="text" name="password" placeholder="Password" /><br />
+  <input type="submit" value="Login" />
+</form>
+
+<!-- upload and display -->
+<h1>File upload</h1>
+<form
+  method="POST"
+  action="{{url_for('file_upload')}}"
+  enctype="multipart/form-data"
+>
+  <input
+    type="file"
+    name="file"
+    accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel, text/plain"
+    required="required"
+  />
+  <input type="submit" value="Upload File" />
+</form>
+
+<!-- upload and convert to CSV -->
+<h1>Convert to CSV</h1>
+<form
+  method="POST"
+  action="{{url_for('convert_csv')}}"
+  enctype="multipart/form-data"
+>
+  <input
+    type="file"
+    name="file"
+    accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+    required="required"
+  />
+  <input type="submit" value="Convert File to CSV" />
+</form>
+
+<h1>Convert to CSV Two</h1>
+<form
+  method="POST"
+  action="{{url_for('convert_csv_two')}}"
+  enctype="multipart/form-data"
+>
+  <input
+    type="file"
+    name="file"
+    accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+    required="required"
+  />
+  <input type="submit" value="Convert to CSV II" />
+</form>
+
+<h1>JavaScript JSON Request</h1>
+<button id="post_button">Send POST Request</button>
+
+<script>
+  const postButton = document.getElementById("post_button");
+  const jsonData = { name: "Angel", greeting: "love" };
+  postButton.addEventListener("click", () => {
+    fetch("{{url_for('handle_post')}}", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json; charset=utf-8",
+      },
+      body: JSON.stringify(jsonData),
+    })
+      .then((res) => res.json())
+      .then((data) => console.log("success response:", data))
+      .catch((error) => console.log(error));
+  });
+</script>
